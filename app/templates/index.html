@@ -11,15 +11,15 @@
     {% else %}
     <h1>ただの神社</h1>
     {% endif %}
-     <!-- 以下を追加 -->
     <form action="/index" method="POST">
         <input type="text" name="name" placeholder="Enter name">
         <input type="submit" value="Submit">
     </form>
-    <!-- 追加終わり -->
     <img src="/static/images/torii.jpg" alt="鳥居">
-    {% for word in okyo %}
-    <p>{{word}}</p>
+    <!-- 以下を変更 -->
+    {% for onegai in all_onegai %}
+    <p>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）</p>
     {% endfor %}
+    <!-- 変更終わり -->
     </body>
 </html>
