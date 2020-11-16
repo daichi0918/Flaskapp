@@ -31,12 +31,22 @@ def add():
     return index()
 
 
-#以下を追加
 @app.route("/update",methods=["post"])
 def update():
     content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
     content.title = request.form["title"]
     content.body = request.form["body"]
+    db_session.commit()
+    return index()
+
+
+#以下を追加
+@app.route("/delete",methods=["post"])
+def delete():
+    id_list = request.form.getlist("delete")
+    for id in id_list:
+        content = OnegaiContent.query.filter_by(id=id).first()
+        db_session.delete(content)
     db_session.commit()
     return index()
 #追加終わり
