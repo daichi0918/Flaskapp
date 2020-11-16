@@ -16,10 +16,16 @@
         <input type="submit" value="Submit">
     </form>
     <img src="/static/images/torii.jpg" alt="鳥居">
-    <!-- 以下を変更 -->
+    <!-- 以下を追加 -->
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="body" placeholder="body">
+        <input type="submit" value="Add">
+    </form>
+    <!-- 追加終わり -->
     {% for onegai in all_onegai %}
     <p>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）</p>
     {% endfor %}
-    <!-- 変更終わり -->
     </body>
 </html>
+

@@ -1,6 +1,9 @@
 from flask import Flask,render_template,request
-#下記のインポート文を追加
 from models.models import OnegaiContent
+#以下を追加
+from models.database import db_session
+from datetime import datetime
+#追加終わり
 
 app = Flask(__name__)
 
@@ -9,19 +12,27 @@ app = Flask(__name__)
 @app.route("/index")
 def index():
     name = request.args.get("name")
-    #以下を変更
     all_onegai = OnegaiContent.query.all()
     return render_template("index.html",name=name,all_onegai=all_onegai)
-    #変更終わり
 
 
 @app.route("/index",methods=["post"])
 def post():
     name = request.form["name"]
-    #ここも変更
     all_onegai = OnegaiContent.query.all()
     return render_template("index.html", name=name, all_onegai=all_onegai)
-    #変更終わり
+
+
+#以下を追加
+@app.route("/add",methods=["post"])
+def add():
+    title = request.form["title"]
+    body = request.form["body"]
+    content = OnegaiContent(title,body,datetime.now())
+    db_session.add(content)
+    db_session.commit()
+    return index()
+#追加終わり
 
 
 if __name__ == "__main__":
